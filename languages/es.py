@@ -238,6 +238,7 @@
 'invalid request': 'solicitud inválida',
 'Invalid reset password': 'Reinicio de contraseña inválido',
 'invalid ticket': 'tiquete inválido',
+'Invalid username': 'Invalid username',
 'Is Active': 'Está Activo',
 'JSON': 'JSON',
 'JSON export of visible columns': 'JSON export of visible columns',

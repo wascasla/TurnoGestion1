@@ -1,30 +1,31 @@
-timestamp: 2015-11-19T21:12:41.535000
+timestamp: 2016-08-25T17:08:03.695000
 CREATE TABLE auth_user(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     first_name CHAR(128),
     last_name CHAR(128),
     email CHAR(512),
+    username CHAR(128),
     password CHAR(512),
     registration_key CHAR(512),
     reset_password_key CHAR(512),
     registration_id CHAR(512)
 );
 success!
-timestamp: 2015-11-19T21:12:41.573000
+timestamp: 2016-08-25T17:08:03.764000
 CREATE TABLE auth_group(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     role CHAR(512),
     description TEXT
 );
 success!
-timestamp: 2015-11-19T21:12:41.592000
+timestamp: 2016-08-25T17:08:03.824000
 CREATE TABLE auth_membership(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  ,
     group_id INTEGER REFERENCES auth_group (id) ON DELETE CASCADE  
 );
 success!
-timestamp: 2015-11-19T21:12:41.904000
+timestamp: 2016-08-25T17:08:03.899000
 CREATE TABLE auth_permission(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     group_id INTEGER REFERENCES auth_group (id) ON DELETE CASCADE  ,
@@ -33,7 +34,7 @@ CREATE TABLE auth_permission(
     record_id INTEGER
 );
 success!
-timestamp: 2015-11-19T21:12:41.904000
+timestamp: 2016-08-25T17:08:03.981000
 CREATE TABLE auth_event(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     time_stamp TIMESTAMP,
@@ -43,7 +44,7 @@ CREATE TABLE auth_event(
     description TEXT
 );
 success!
-timestamp: 2015-11-19T21:12:41.920000
+timestamp: 2016-08-25T17:08:04.065000
 CREATE TABLE auth_cas(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  ,
@@ -53,13 +54,13 @@ CREATE TABLE auth_cas(
     renew CHAR(1)
 );
 success!
-timestamp: 2015-11-19T21:13:42.193000
+timestamp: 2016-08-25T17:08:04.121000
 CREATE TABLE obraSocial(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     descripcion CHAR(512)
 );
 success!
-timestamp: 2015-11-19T21:13:42.435000
+timestamp: 2016-08-25T17:08:04.266000
 CREATE TABLE paciente(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nombres CHAR(15),
@@ -75,11 +76,12 @@ CREATE TABLE paciente(
     created_on TIMESTAMP
 );
 success!
-timestamp: 2015-11-19T21:13:42.618000
+timestamp: 2016-08-25T17:08:04.380000
 CREATE TABLE task(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     title CHAR(512),
     paciente INTEGER REFERENCES paciente (id) ON DELETE CASCADE  ,
+    duracion INTEGER,
     description TEXT,
     start_time TIMESTAMP,
     stop_time TIMESTAMP,
@@ -88,7 +90,4 @@ CREATE TABLE task(
     created_by INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  ,
     created_on TIMESTAMP
 );
-success!
-timestamp: 2015-11-30T23:25:44.156000
-ALTER TABLE auth_user ADD username CHAR(128);
 success!

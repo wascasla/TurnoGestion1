@@ -1,9 +1,11 @@
+{{response.files.append(URL(r=request,c='static',f='js/jquery.js'))}}
 {{response.files.append(URL(r=request,c='static',f='ui.core.js'))}}
 {{response.files.append(URL(r=request,c='static',f='ui.draggable.js'))}}
 {{response.files.append(URL(r=request,c='static',f='js/moment.min.js'))}}
 {{response.files.append(URL(r=request,c='static',f='js/fullcalendar.js'))}}
 {{response.files.append(URL(r=request,c='static',f='css/fullcalendar.css'))}}
 {{response.files.append(URL(r=request,c='static',f='js/lang/es.js'))}}
+
 {{extend 'layout.html'}}
 
 
@@ -26,14 +28,16 @@
             editable: false,
             weekends:false,
             lang: 'es',
+            minTime: "08:00:00",
             events: [
             {{for registro in registros:}}
                 {
                     title: '{{=registro.paciente.apellidos}},{{=registro.paciente.nombres}} Nro sesion: {{=registro.task.nro_sesion}}',
-                    allDay: false,
-                    start: new Date('{{=registro.task.start_time.strftime('%B %d, %Y %H:%M:%S')}}'),
-                    stop: new Date('{{=registro.task.stop_time.strftime('%B %d, %Y %H:%M:%S')}}'),
-                    duration: '00:10:00',
+                    allDay: false,                    
+                    start: '{{=registro.task.start_time.strftime('%Y-%m-%dT%H:%M')}}',//),//%B %d, %Y
+                    end: '{{=registro.task.stop_time.strftime('%Y-%m-%dT%H:%M')}}',//),   
+                    //stop: new Date('{{=registro.task.stop_time.strftime('%Y-%m-%d T %H:%M:%S')}}'),            
+                    //duration: '00:10:00',
                     {{if registro.task.concluido == True: }}
                         color: 'black'
                     {{else:}}

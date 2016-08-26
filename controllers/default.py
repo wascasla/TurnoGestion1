@@ -209,6 +209,7 @@ def turno_formulario():
 def agregarTurno():
     paciente_id = request.vars['id']    
     nro_sesion = int(request.vars['nro_sesion'])
+    duration = int(request.vars['duracion'])
     #nro = int(request.vars['nro_sesion'])
     nro = 1
     fecha1 = datetime.datetime.strptime(request.vars['start_time'], "%Y-%m-%dT%H:%M")
@@ -229,8 +230,8 @@ def agregarTurno():
                 fecha1=fecha1+timedelta(days=1)
                 #valor = valor - 1
             else:
-                id = db.task.insert(title="Turno",description=request.vars['description'],nro_sesion=nro,
-                start_time=fecha1,stop_time=fecha1+ timedelta(minutes=30),paciente=request.vars['id'])
+                id = db.task.insert(title="Turno",description=request.vars['description'],duracion=duration,nro_sesion=nro,
+                start_time=fecha1,stop_time=fecha1+ timedelta(minutes=duration),paciente=request.vars['id'])
                 fecha1=fecha1+timedelta(days=1)
                 nro += 1  
                 valor = valor + 1

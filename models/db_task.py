@@ -31,11 +31,16 @@ db.define_table('paciente',
     )
 
 
+#db.define_table('duration',
+#    Field('description','text',label='Descripcion'),
+#    Field('valor','integer'),
+#    format='%(description)s')
 
 db.define_table('task',
     Field('title','string'),
 #    Field('task_type'),
     Field('paciente',db.paciente),
+    Field('duracion','integer',label='Duracion (minutos)'),
     Field('description','text',label='Observacion'),
     Field('start_time','datetime',label='Fecha y Hora'),
     Field('stop_time','datetime'),
