@@ -375,7 +375,7 @@ hr.fc-divider {
 	table-layout: fixed;
 	border-collapse: collapse;
 	border-spacing: 0;
-	font-size: 1em; /* normalize cross-browser */
+	font-size: 1.2em; /* normalize cross-browser */
 }
 
 .fc th {

@@ -29,10 +29,11 @@
             weekends:false,
             lang: 'es',
             minTime: "08:00:00",
+            maxTime: "22:00:00",            
             events: [
             {{for registro in registros:}}
                 {
-                    title: '{{=registro.paciente.apellidos}},{{=registro.paciente.nombres}} Nro sesion: {{=registro.task.nro_sesion}}',
+                    title: 'Pac: {{=registro.paciente.apellidos}} {{=registro.paciente.nombres}}, Nro sesion: {{=registro.task.nro_sesion}}  Obs: {{=registro.task.description}}, Medico: {{=registro.task.created_by.username}} ',
                     allDay: false,                    
                     start: '{{=registro.task.start_time.strftime('%Y-%m-%dT%H:%M')}}',//),//%B %d, %Y
                     end: '{{=registro.task.stop_time.strftime('%Y-%m-%dT%H:%M')}}',//),   

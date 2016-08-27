@@ -44,7 +44,7 @@
 										{{else:}}
 											<td>no</td>
 										{{pass}}
-									<td>{{=turno.created_by}}</td>			
+									<td>{{=turno.created_by.username}}</td>			
 									<td>{{=A('Editar', _href=URL('editarTurno', args=[turno.id,turno.paciente]))}}</td>
 									<td>{{=A('Concluir', _href=URL('concluirTurno', args=[turno.id,turno.paciente]))}}</td>
 									<td>{{=A('Eliminar', _href=URL('eliminarTurno', args=[turno.id,turno.paciente]))}}</td>

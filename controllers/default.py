@@ -88,9 +88,11 @@ def calendar2():
 @auth.requires_login()
 def calendar():
     #tasks=db(db.task).select()
-    registros=db().select(
-        db.paciente.ALL, db.task.ALL,
-        left = db.paciente.on(db.paciente.id==db.task.paciente))
+    #registros=db().select(
+    #    db.paciente.ALL, db.task.ALL,
+    #    left = db.paciente.on(db.paciente.id==db.task.paciente)&(db.task.created_by==1))
+    registros= db((db.paciente.id==db.task.paciente)&
+        (db.task.created_by==auth.user.id)).select()
     return dict(registros=registros)
     #tasks=db(db.task.start_time>=request.now).select()
 
@@ -111,6 +113,19 @@ def getAllPacientes():
     #pacientes = db(db.paciente).select()
     #turnosDelDia = db(db.task.start_time==request.now).select()
     #return dict(pacientes=pacientes)
+@auth.requires_login()
+@service.json
+def getAllPacientesAjax2():
+    registros=db().select(
+        db.paciente.ALL, db.obraSocial.ALL,
+        left = db.obraSocial.on(db.paciente.obraSocial==db.obraSocial.id))
+    #return dict(registros=registros)
+    return response.json(registros)
+
+def getAllPacientesAjax():
+    response.view='default/getAllPacientesAjax.html'
+    return dict(message=T("Hello World"))
+
 
 def allPacientes():
     pacientes = db(db.paciente).select()
@@ -172,14 +187,14 @@ def editarTurnoCalendar():
     idpaciente =(request.args(1))
     #siguiente = crud.settings.update_next = URL('turnosDelPaciente', args=(idpaciente))
     encabezado = {'start_time': 'Fecha y Hora'}
-    return dict(formulario=crud.update(db.task,(request.args(0)),fields=['start_time','description','nro_sesion','concluido'],next='calendar',headers=encabezado,message='Registro editado con Exito'))
+    return dict(formulario=crud.update(db.task,(request.args(0)),fields=['start_time','stop_time','description','nro_sesion','concluido'],next='calendar',headers=encabezado,message='Registro editado con Exito'))
 
 #editar turno del paciente
 @auth.requires_login()
 def editarTurno():
     idpaciente =(request.args(1))
     siguiente = crud.settings.update_next = URL('turnosDelPaciente', args=(idpaciente))
-    return dict(formulario=crud.update(db.task,(request.args(0)),fields=['title','start_time','description','nro_sesion','concluido'],next=siguiente,message='Registro editado con Exito'))
+    return dict(formulario=crud.update(db.task,(request.args(0)),fields=['title','start_time','stop_time','description','nro_sesion','concluido'],next=siguiente,message='Registro editado con Exito'))
     #redirect(URL('turnosDelPaciente', args=(idpaciente)))
     #return locals()
     #crud.update(db.nombredelatabla, id)
