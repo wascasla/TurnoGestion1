@@ -402,3 +402,189 @@ success!
 success!
 success!
 success!
+timestamp: 2016-09-21T11:38:08.126000
+CREATE TABLE auth_user(
+    id SERIAL PRIMARY KEY,
+    first_name VARCHAR(128),
+    last_name VARCHAR(128),
+    email VARCHAR(512),
+    username VARCHAR(128),
+    password VARCHAR(512),
+    registration_key VARCHAR(512),
+    reset_password_key VARCHAR(512),
+    registration_id VARCHAR(512)
+);
+success!
+timestamp: 2016-09-21T11:38:08.508000
+CREATE TABLE auth_group(
+    id SERIAL PRIMARY KEY,
+    role VARCHAR(512),
+    description TEXT
+);
+success!
+timestamp: 2016-09-21T11:38:08.565000
+CREATE TABLE auth_membership(
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  ,
+    group_id INTEGER REFERENCES auth_group (id) ON DELETE CASCADE  
+);
+success!
+timestamp: 2016-09-21T11:38:08.682000
+CREATE TABLE auth_permission(
+    id SERIAL PRIMARY KEY,
+    group_id INTEGER REFERENCES auth_group (id) ON DELETE CASCADE  ,
+    name VARCHAR(512),
+    table_name VARCHAR(512),
+    record_id INTEGER
+);
+success!
+timestamp: 2016-09-21T11:38:08.714000
+CREATE TABLE auth_event(
+    id SERIAL PRIMARY KEY,
+    time_stamp TIMESTAMP,
+    client_ip VARCHAR(512),
+    user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  ,
+    origin VARCHAR(512),
+    description TEXT
+);
+success!
+timestamp: 2016-09-21T11:38:08.751000
+CREATE TABLE auth_cas(
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  ,
+    created_on TIMESTAMP,
+    service VARCHAR(512),
+    ticket VARCHAR(512),
+    renew CHAR(1)
+);
+success!
+timestamp: 2016-09-21T11:38:08.814000
+CREATE TABLE obraSocial(
+    id SERIAL PRIMARY KEY,
+    descripcion VARCHAR(512)
+);
+success!
+timestamp: 2016-09-21T11:38:08.849000
+CREATE TABLE paciente(
+    id SERIAL PRIMARY KEY,
+    nombres VARCHAR(15),
+    apellidos VARCHAR(15),
+    dni INTEGER,
+    fechaNac DATE,
+    obraSocial INTEGER REFERENCES obraSocial (id) ON DELETE CASCADE  ,
+    domicilio VARCHAR(50),
+    telFijo VARCHAR(40),
+    celular VARCHAR(40),
+    email VARCHAR(40),
+    created_by INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  ,
+    created_on TIMESTAMP
+);
+success!
+timestamp: 2016-09-21T11:38:08.907000
+CREATE TABLE task(
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(512),
+    paciente INTEGER REFERENCES paciente (id) ON DELETE CASCADE  ,
+    duracion INTEGER,
+    description TEXT,
+    start_time TIMESTAMP,
+    stop_time TIMESTAMP,
+    nro_sesion INTEGER,
+    concluido CHAR(1),
+    created_by INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  ,
+    created_on TIMESTAMP
+);
+success!
+timestamp: 2016-09-21T11:51:44.723000
+CREATE TABLE auth_user(
+    id SERIAL PRIMARY KEY,
+    first_name VARCHAR(128),
+    last_name VARCHAR(128),
+    email VARCHAR(512),
+    username VARCHAR(128),
+    password VARCHAR(512),
+    registration_key VARCHAR(512),
+    reset_password_key VARCHAR(512),
+    registration_id VARCHAR(512)
+);
+success!
+timestamp: 2016-09-21T11:51:45.005000
+CREATE TABLE auth_group(
+    id SERIAL PRIMARY KEY,
+    role VARCHAR(512),
+    description TEXT
+);
+success!
+timestamp: 2016-09-21T11:51:45.047000
+CREATE TABLE auth_membership(
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  ,
+    group_id INTEGER REFERENCES auth_group (id) ON DELETE CASCADE  
+);
+success!
+timestamp: 2016-09-21T11:51:45.103000
+CREATE TABLE auth_permission(
+    id SERIAL PRIMARY KEY,
+    group_id INTEGER REFERENCES auth_group (id) ON DELETE CASCADE  ,
+    name VARCHAR(512),
+    table_name VARCHAR(512),
+    record_id INTEGER
+);
+success!
+timestamp: 2016-09-21T11:51:45.137000
+CREATE TABLE auth_event(
+    id SERIAL PRIMARY KEY,
+    time_stamp TIMESTAMP,
+    client_ip VARCHAR(512),
+    user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  ,
+    origin VARCHAR(512),
+    description TEXT
+);
+success!
+timestamp: 2016-09-21T11:51:45.201000
+CREATE TABLE auth_cas(
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  ,
+    created_on TIMESTAMP,
+    service VARCHAR(512),
+    ticket VARCHAR(512),
+    renew CHAR(1)
+);
+success!
+timestamp: 2016-09-21T11:51:45.240000
+CREATE TABLE obraSocial(
+    id SERIAL PRIMARY KEY,
+    descripcion VARCHAR(512)
+);
+success!
+timestamp: 2016-09-21T11:51:45.274000
+CREATE TABLE paciente(
+    id SERIAL PRIMARY KEY,
+    nombres VARCHAR(15),
+    apellidos VARCHAR(15),
+    dni INTEGER,
+    fechaNac DATE,
+    obraSocial INTEGER REFERENCES obraSocial (id) ON DELETE NO ACTION  ,
+    domicilio VARCHAR(50),
+    telFijo VARCHAR(40),
+    celular VARCHAR(40),
+    email VARCHAR(40),
+    created_by INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  ,
+    created_on TIMESTAMP
+);
+success!
+timestamp: 2016-09-21T11:51:45.330000
+CREATE TABLE task(
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(512),
+    paciente INTEGER REFERENCES paciente (id) ON DELETE CASCADE  ,
+    duracion INTEGER,
+    description TEXT,
+    start_time TIMESTAMP,
+    stop_time TIMESTAMP,
+    nro_sesion INTEGER,
+    concluido CHAR(1),
+    created_by INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  ,
+    created_on TIMESTAMP
+);
+success!
