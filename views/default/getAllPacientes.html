@@ -96,6 +96,7 @@
 	<div class="panel-heading">Listado</div>
 		  <div class="panel-body">
 			  	{{if len(registros) > 0:}}
+			  	<div class="table-responsive">
 					    <table id="Tabla" class="table table-bordered" >
 						    <thead>		
 								<tr>
@@ -130,7 +131,7 @@
 							   {{pass}}
 							</tbody>
 						</table>  
-
+				</div>
 				{{else:}}
 					<h3>NO existen datos para mostrar</h3>
 				{{pass}}

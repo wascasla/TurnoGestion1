@@ -139,13 +139,13 @@ def buscarPacientes():
     #db.paciente.ALL, db.obraSocial.ALL,
     #left = db.obraSocial.on(db.paciente.obraSocial==db.obraSocial.id)&(db.paciente.dni==campo))
     if request.vars['optionsRadios'] == '1' or request.vars['input'] == '':
-        registros= db((db.paciente.obraSocial==db.obraSocial.id)).select()
+        registros= db((db.paciente.obraSocial==db.obraSocial.id)&(db.paciente.created_by==auth.user.id)).select()
     if request.vars['optionsRadios'] == '2':
-        registros= db((db.paciente.obraSocial==db.obraSocial.id)&(db.paciente.dni==request.vars['input'])).select()
+        registros= db((db.paciente.obraSocial==db.obraSocial.id)&(db.paciente.dni==request.vars['input'])&(db.paciente.created_by==auth.user.id)).select()
     if request.vars['optionsRadios'] == '3':
-        registros= db((db.paciente.obraSocial==db.obraSocial.id)&(db.paciente.apellidos.lower().contains((request.vars['input']).lower()))).select()
+        registros= db((db.paciente.obraSocial==db.obraSocial.id)&(db.paciente.created_by==auth.user.id)&(db.paciente.apellidos.lower().contains((request.vars['input']).lower()))).select()
     if request.vars['optionsRadios'] == '4':
-        registros= db((db.paciente.obraSocial==db.obraSocial.id)&(db.paciente.nombres.lower().contains((request.vars['input']).lower()))).select()
+        registros= db((db.paciente.obraSocial==db.obraSocial.id)&(db.paciente.created_by==auth.user.id)&(db.paciente.nombres.lower().contains((request.vars['input']).lower()))).select()
 
     #registros= db((db.paciente.obraSocial==db.obraSocial.id)&(db.paciente.dni==campo)).select()
     #return dict(registros=registros)
